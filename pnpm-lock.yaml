@@ -17,7 +17,7 @@ importers:
 
   packages/backend:
     dependencies:
-      '@monapi/shared':
+      '@apimarket/shared':
         specifier: workspace:*
         version: link:../shared
       '@prisma/client':
@@ -105,7 +105,7 @@ importers:
 
   packages/frontend:
     dependencies:
-      '@monapi/shared':
+      '@apimarket/shared':
         specifier: workspace:*
         version: link:../shared
       '@rainbow-me/rainbowkit':

@@ -64,7 +64,7 @@ export default function SellerPage() {
         <div>
           <p className="text-sm font-medium text-gray-600">Claimable Earnings</p>
           <p className={`text-2xl font-bold mt-1 ${hasPending ? "text-green-600" : "text-gray-400"}`}>
-            {formatEther(pendingAmount)} MON
+            {formatEther(pendingAmount)} ETH
           </p>
           {isConfirmed && (
             <p className="text-xs text-green-600 mt-1">Successfully claimed!</p>
@@ -137,7 +137,7 @@ function StatCard({
 }
 
 function ApiRow({ api, onDelete }: { api: SellerApi; onDelete: (id: string) => void }) {
-  const priceInMon = formatEther(BigInt(api.price));
+  const priceInEth = formatEther(BigInt(api.price));
   const canDelete = api.status === "APPROVED" || api.status === "REJECTED" || api.status === "REVOKED";
 
   return (
@@ -176,7 +176,7 @@ function ApiRow({ api, onDelete }: { api: SellerApi; onDelete: (id: string) => v
         <span className="text-xs font-medium text-gray-700 capitalize bg-gray-100 px-2 py-0.5 rounded">
           {api.category}
         </span>
-        <span className="text-sm font-semibold text-gray-800">{priceInMon} MON</span>
+        <span className="text-sm font-semibold text-gray-800">{priceInEth} ETH</span>
         <span className="text-xs text-gray-500">
           {api._count.payments} sales
         </span>

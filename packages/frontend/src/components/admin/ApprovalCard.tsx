@@ -90,7 +90,7 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
             </p>
           </div>
           <div className="text-right text-sm text-gray-500">
-            <p className="font-medium">{formatEther(BigInt(api.price))} MON</p>
+            <p className="font-medium">{formatEther(BigInt(api.price))} ETH</p>
             <p className="capitalize text-xs">{api.category}</p>
           </div>
         </div>

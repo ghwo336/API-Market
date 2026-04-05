@@ -17,7 +17,7 @@ export default function ApiCard({ api }: { api: ApiListingPublic }) {
         </p>
         <div className="flex justify-between items-center">
           <span className="text-lg font-bold text-primary-500">
-            {formatEther(BigInt(api.price))} MON
+            {formatEther(BigInt(api.price))} ETH
           </span>
           <span className="text-xs text-gray-400 font-mono">
             {api.sellerAddress.slice(0, 6)}...{api.sellerAddress.slice(-4)}

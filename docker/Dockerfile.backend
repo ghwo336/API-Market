@@ -18,9 +18,9 @@ RUN pnpm install --frozen-lockfile
 COPY packages/shared ./packages/shared
 COPY packages/backend ./packages/backend
 
-RUN pnpm --filter @monapi/shared build
-RUN pnpm --filter @monapi/backend db:generate
-RUN pnpm --filter @monapi/backend build
+RUN pnpm --filter @apimarket/shared build
+RUN pnpm --filter @apimarket/backend db:generate
+RUN pnpm --filter @apimarket/backend build
 
 COPY docker/backend-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

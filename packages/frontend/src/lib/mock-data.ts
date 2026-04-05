@@ -47,12 +47,12 @@ export const mockApis: ApiListingPublic[] = [
     onChainId: 3,
     name: "Token Price Oracle",
     description:
-      "Fetch real-time token prices from multiple DEXs on Monad. Supports MON, USDC, WETH, and 50+ tokens.",
+      "Fetch real-time token prices from multiple DEXs on Base. Supports ETH, USDC, WETH, and 50+ tokens.",
     price: "5000000000000000",
     category: "finance",
     sellerAddress: "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
     status: ApiStatus.APPROVED,
-    exampleRequest: { token: "MON", quote: "USDC" },
+    exampleRequest: { token: "ETH", quote: "USDC" },
     exampleResponse: {
       price: 2.45,
       volume_24h: 15000000,
@@ -72,7 +72,7 @@ export const mockApis: ApiListingPublic[] = [
     sellerAddress: "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
     status: ApiStatus.APPROVED,
     exampleRequest: {
-      prompt: "A futuristic city on Monad blockchain",
+      prompt: "A futuristic city on Base blockchain",
       style: "digital art",
     },
     exampleResponse: {
@@ -92,7 +92,7 @@ export const mockApis: ApiListingPublic[] = [
     category: "ai",
     sellerAddress: "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
     status: ApiStatus.APPROVED,
-    exampleRequest: { text: "Monad is the fastest L1 blockchain!" },
+    exampleRequest: { text: "Base is the fastest L2 blockchain!" },
     exampleResponse: {
       sentiment: "positive",
       confidence: 0.92,
@@ -112,7 +112,7 @@ export const mockApis: ApiListingPublic[] = [
     sellerAddress: "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
     status: ApiStatus.APPROVED,
     exampleRequest: {
-      chain: "monad",
+      chain: "base",
       contract: "0x1234...abcd",
       tokenId: 1,
     },

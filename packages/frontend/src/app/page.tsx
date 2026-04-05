@@ -11,7 +11,7 @@ export default function Home() {
           Discover verified APIs. Pay on-chain. Get instant results.
         </p>
         <p className="text-lg text-gray-500 mb-10 max-w-xl mx-auto">
-          Built for AI agents and developers on Monad
+          Built for AI agents and developers on Base
         </p>
         <div className="flex justify-center gap-4">
           <Link href="/marketplace" className="btn-primary text-lg px-8 py-3">
@@ -35,7 +35,7 @@ export default function Home() {
           <div className="text-3xl mb-4">2</div>
           <h3 className="text-lg font-semibold mb-2">Pay On-Chain</h3>
           <p className="text-gray-600">
-            Secure escrow payments on Monad with instant finality
+            Secure escrow payments on Base with instant finality
           </p>
         </div>
         <div className="card text-center">

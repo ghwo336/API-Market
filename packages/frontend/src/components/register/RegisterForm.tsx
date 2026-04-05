@@ -12,7 +12,7 @@ export default function RegisterForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [endpoint, setEndpoint] = useState("");
-  const [priceInMon, setPriceInMon] = useState("");
+  const [priceInEth, setPriceInMon] = useState("");
   const [category, setCategory] = useState("general");
 
   if (!isConnected) {
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     if (!address) return;
 
     try {
-      const priceInWei = parseEther(priceInMon).toString();
+      const priceInWei = parseEther(priceInEth).toString();
       await register({
         name,
         description,
@@ -102,13 +102,13 @@ export default function RegisterForm() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Price (MON)
+            Price (ETH)
           </label>
           <input
             type="number"
             step="0.001"
             min="0"
-            value={priceInMon}
+            value={priceInEth}
             onChange={(e) => setPriceInMon(e.target.value)}
             className="input"
             placeholder="0.01"

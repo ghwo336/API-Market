@@ -24,7 +24,7 @@ export default function ApiInfo({ api }: { api: ApiListingPublic }) {
         <div className="bg-gray-50 rounded-lg p-4">
           <p className="text-sm text-gray-500">Price</p>
           <p className="text-2xl font-bold text-primary-500">
-            {formatEther(BigInt(api.price))} MON
+            {formatEther(BigInt(api.price))} ETH
           </p>
         </div>
         <div className="bg-gray-50 rounded-lg p-4">

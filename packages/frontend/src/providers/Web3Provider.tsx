@@ -19,7 +19,7 @@ export default function Web3Provider({
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           theme={lightTheme({
-            accentColor: "#6C5CE7",
+            accentColor: "#3B82F6",
             accentColorForeground: "white",
             borderRadius: "medium",
           })}
