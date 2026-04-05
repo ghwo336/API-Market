@@ -1,0 +1,23 @@
+{
+  "name": "@apimarket/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy:local": "hardhat ignition deploy ignition/modules/ApiMarketEscrow.ts --network localhost",
+    "deploy:testnet": "hardhat ignition deploy ignition/modules/ApiMarketEscrow.ts --network baseSepolia",
+    "copy-abi": "tsx scripts/copy-abi.ts",
+    "clean": "hardhat clean"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox-viem": "^3.0.0",
+    "@nomicfoundation/hardhat-ignition-viem": "^0.15.0",
+    "hardhat": "^2.22.0",
+    "viem": "^2.21.0",
+    "dotenv": "^16.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

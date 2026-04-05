@@ -1,0 +1,69 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+import { apiClient } from "@/lib/api-client";
+import type { ApiListing } from "@apimarket/shared";
+
+export function useAdmin() {
+  const [pendingApis, setPendingApis] = useState<ApiListing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchPending = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await apiClient.get<ApiListing[]>(
+        "/apis?status=PENDING"
+      );
+      setPendingApis(data);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to load pending APIs"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchPending();
+  }, [fetchPending]);
+
+  async function approve(apiId: string, adminAddress: string, reason?: string) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001/api"}/admin/apis/${apiId}/approve`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ reason }),
+      }
+    );
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body?.error?.message || "Failed to approve");
+    }
+    await fetchPending();
+    return res.json();
+  }
+
+  async function reject(apiId: string, adminAddress: string, reason?: string) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001/api"}/admin/apis/${apiId}/reject`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ reason }),
+      }
+    );
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body?.error?.message || "Failed to reject");
+    }
+    await fetchPending();
+  }
+
+  return { pendingApis, loading, error, approve, reject, refetch: fetchPending };
+}

@@ -1,0 +1,71 @@
+"use client";
+
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
+import { usePayment } from "@/hooks/usePayment";
+import { useEffect } from "react";
+import type { ApiListingPublic } from "@apimarket/shared";
+
+export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
+  const { address, isConnected } = useAccount();
+  const router = useRouter();
+  const {
+    prepare,
+    pay,
+    prepareData,
+    isPreparing,
+    prepareError,
+    isWriting,
+    isConfirming,
+    isConfirmed,
+  } = usePayment();
+
+  useEffect(() => {
+    if (isConfirmed && prepareData) {
+      router.push(`/requests/${prepareData.requestId}`);
+    }
+  }, [isConfirmed, prepareData, router]);
+
+  if (!isConnected) {
+    return (
+      <p className="text-gray-500 text-center py-4">
+        Connect your wallet to purchase this API
+      </p>
+    );
+  }
+
+  async function handlePurchase() {
+    if (!address || !api.onChainId) return;
+
+    try {
+      const data = await prepare(api.id, address);
+      pay(data.onChainApiId, data.seller, data.amount);
+    } catch {
+      // Error handled in hook state
+    }
+  }
+
+  const isLoading = isPreparing || isWriting || isConfirming;
+
+  return (
+    <div className="space-y-3">
+      <button
+        onClick={handlePurchase}
+        disabled={isLoading}
+        className="w-full btn-primary py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {isPreparing
+          ? "Preparing..."
+          : isWriting
+            ? "Confirm in wallet..."
+            : isConfirming
+              ? "Confirming..."
+              : "Purchase API"}
+      </button>
+
+      {prepareError && (
+        <p className="text-red-500 text-sm text-center">{prepareError}</p>
+      )}
+    </div>
+  );
+}

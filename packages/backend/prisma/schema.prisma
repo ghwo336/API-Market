@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ApiStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  REVOKED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  EXECUTING
+  COMPLETED
+  REFUNDED
+  FAILED
+}
+
+model ApiListing {
+  id             String    @id @default(uuid())
+  onChainId      Int?      @unique
+  name           String
+  description    String
+  endpoint       String
+  price          String
+  category       String    @default("general")
+  sellerAddress  String
+  exampleRequest Json?
+  exampleResponse Json?
+  status         ApiStatus @default(PENDING)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  payments     PaymentRequest[]
+  adminActions AdminAction[]
+
+  @@index([status])
+  @@index([sellerAddress])
+}
+
+model PaymentRequest {
+  id               String        @id @default(uuid())
+  apiId            String
+  buyer            String
+  seller           String
+  amount           String
+  onChainPaymentId Int?          @unique
+  status           PaymentStatus @default(PENDING)
+  txHash           String?
+  completionTxHash String?
+  result           Json?
+  errorMessage     String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  api ApiListing @relation(fields: [apiId], references: [id])
+
+  @@index([status])
+  @@index([buyer])
+  @@index([txHash])
+}
+
+model AdminAction {
+  id           String   @id @default(uuid())
+  apiId        String
+  action       String
+  adminAddress String
+  reason       String?
+  createdAt    DateTime @default(now())
+
+  api ApiListing @relation(fields: [apiId], references: [id])
+}

@@ -1,0 +1,18 @@
+{
+  "name": "monapi-market",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter @apimarket/backend --filter @apimarket/frontend dev",
+    "build": "pnpm --filter @apimarket/shared build && pnpm --filter @apimarket/backend build && pnpm --filter @apimarket/frontend build",
+    "test": "pnpm -r test",
+    "contracts:compile": "pnpm --filter @apimarket/contracts compile",
+    "contracts:test": "pnpm --filter @apimarket/contracts test",
+    "db:migrate": "pnpm --filter @apimarket/backend db:migrate",
+    "db:studio": "pnpm --filter @apimarket/backend db:studio",
+    "clean": "pnpm -r exec rm -rf dist node_modules .next"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "prettier": "^3.4.0"
+  }
+}

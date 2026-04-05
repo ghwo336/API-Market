@@ -1,0 +1,143 @@
+import prisma from "../config/prisma.js";
+import { ApiStatus } from "@apimarket/shared";
+import { NotFoundError } from "../utils/errors.js";
+
+export async function listApproved(filters?: {
+  category?: string;
+  search?: string;
+}) {
+  const where: Record<string, unknown> = { status: ApiStatus.APPROVED };
+
+  if (filters?.category) {
+    where.category = filters.category;
+  }
+
+  if (filters?.search) {
+    where.OR = [
+      { name: { contains: filters.search, mode: "insensitive" } },
+      { description: { contains: filters.search, mode: "insensitive" } },
+    ];
+  }
+
+  const apis = await prisma.apiListing.findMany({
+    where,
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      onChainId: true,
+      name: true,
+      description: true,
+      price: true,
+      category: true,
+      sellerAddress: true,
+      status: true,
+      exampleRequest: true,
+      exampleResponse: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  return apis;
+}
+
+export async function listByStatus(status: ApiStatus) {
+  return prisma.apiListing.findMany({
+    where: { status },
+    orderBy: { createdAt: "desc" },
+  });
+}
+
+export async function getById(id: string) {
+  const api = await prisma.apiListing.findUnique({ where: { id } });
+  if (!api) throw new NotFoundError("API not found");
+  return api;
+}
+
+export async function register(data: {
+  name: string;
+  description: string;
+  endpoint: string;
+  price: string;
+  sellerAddress: string;
+  category?: string;
+  exampleRequest?: unknown;
+  exampleResponse?: unknown;
+}) {
+  return prisma.apiListing.create({
+    data: {
+      name: data.name,
+      description: data.description,
+      endpoint: data.endpoint,
+      price: data.price,
+      sellerAddress: data.sellerAddress.toLowerCase(),
+      category: data.category || "general",
+      exampleRequest: data.exampleRequest as never,
+      exampleResponse: data.exampleResponse as never,
+    },
+  });
+}
+
+export async function listBySeller(sellerAddress: string) {
+  const apis = await prisma.apiListing.findMany({
+    where: { sellerAddress: sellerAddress.toLowerCase() },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      onChainId: true,
+      name: true,
+      description: true,
+      price: true,
+      category: true,
+      sellerAddress: true,
+      status: true,
+      createdAt: true,
+      updatedAt: true,
+      _count: { select: { payments: { where: { status: "COMPLETED" } } } },
+      adminActions: {
+        where: { action: "REJECT" },
+        orderBy: { createdAt: "desc" },
+        take: 1,
+        select: { reason: true },
+      },
+    },
+  });
+
+  return apis.map(({ adminActions, ...api }) => ({
+    ...api,
+    rejectionReason: adminActions[0]?.reason ?? null,
+  }));
+}
+
+export async function deleteApi(id: string, sellerAddress: string) {
+  const api = await prisma.apiListing.findUnique({ where: { id } });
+  if (!api) throw new NotFoundError("API not found");
+  if (api.sellerAddress.toLowerCase() !== sellerAddress.toLowerCase()) {
+    throw new NotFoundError("API not found");
+  }
+  if (api.status === "APPROVED" || api.status === "REJECTED" || api.status === "REVOKED") {
+    await prisma.adminAction.deleteMany({ where: { apiId: id } });
+    await prisma.paymentRequest.deleteMany({ where: { apiId: id } });
+    await prisma.apiListing.delete({ where: { id } });
+    return { success: true };
+  }
+  throw new Error(`Cannot delete API in ${api.status} status`);
+}
+
+export async function getNextOnChainId(): Promise<number> {
+  const max = await prisma.apiListing.aggregate({
+    _max: { onChainId: true },
+  });
+  return (max._max.onChainId ?? 0) + 1;
+}
+
+export async function updateStatus(
+  id: string,
+  status: ApiStatus,
+  onChainId?: number
+) {
+  return prisma.apiListing.update({
+    where: { id },
+    data: { status, ...(onChainId !== undefined ? { onChainId } : {}) },
+  });
+}

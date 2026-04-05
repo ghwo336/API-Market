@@ -1,0 +1,49 @@
+FROM node:20-alpine AS builder
+RUN apk add --no-cache python3 make g++
+RUN corepack enable
+
+WORKDIR /app
+
+ARG NEXT_PUBLIC_BACKEND_URL=http://localhost:3001/api
+ARG NEXT_PUBLIC_CONTRACT_ADDRESS=0x0000000000000000000000000000000000000000
+ARG NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=YOUR_PROJECT_ID
+ARG NEXT_PUBLIC_ADMIN_ADDRESSES=
+ARG NEXT_PUBLIC_CHAIN_ID=10143
+
+ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+ENV NEXT_PUBLIC_CONTRACT_ADDRESS=$NEXT_PUBLIC_CONTRACT_ADDRESS
+ENV NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=$NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
+ENV NEXT_PUBLIC_ADMIN_ADDRESSES=$NEXT_PUBLIC_ADMIN_ADDRESSES
+ENV NEXT_PUBLIC_CHAIN_ID=$NEXT_PUBLIC_CHAIN_ID
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy workspace manifests first (layer cache)
+COPY pnpm-workspace.yaml pnpm-lock.yaml package.json tsconfig.base.json ./
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/backend/package.json ./packages/backend/
+COPY packages/contracts/package.json ./packages/contracts/
+COPY packages/frontend/package.json ./packages/frontend/
+
+RUN pnpm install --frozen-lockfile
+
+# Copy source and build
+COPY packages/shared ./packages/shared
+COPY packages/frontend ./packages/frontend
+
+RUN pnpm --filter @monapi/shared build
+RUN pnpm --filter @monapi/frontend build
+
+# ---- Runner ----
+FROM node:20-alpine AS runner
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+WORKDIR /app
+
+# Next.js standalone output
+COPY --from=builder /app/packages/frontend/.next/standalone ./
+COPY --from=builder /app/packages/frontend/.next/static ./packages/frontend/.next/static
+RUN mkdir -p ./packages/frontend/public
+COPY --from=builder /app/packages/frontend/public/ ./packages/frontend/public/
+
+EXPOSE 3000
+CMD ["node", "packages/frontend/server.js"]

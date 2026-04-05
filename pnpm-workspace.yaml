@@ -1,0 +1,13 @@
+packages:
+  - "packages/*"
+
+onlyBuiltDependencies:
+  - "@prisma/client"
+  - "@prisma/engines"
+  - bufferutil
+  - esbuild
+  - keccak
+  - prisma
+  - secp256k1
+  - sharp
+  - utf-8-validate
