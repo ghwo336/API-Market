@@ -10,7 +10,7 @@
 
 ## What is API Market?
 
-API Market is a decentralized marketplace for API services. Sellers register their APIs on-chain, buyers (including autonomous AI agents) pay per-call using ETH, and the gateway automatically settles each payment after verifying the API response.
+API Market is a marketplace for API services with on-chain payments. Sellers register their APIs and await admin approval, buyers (including autonomous AI agents) pay per-call using ETH via smart contract escrow, and a centralized gateway verifies the API response and settles each payment on-chain.
 
 The core flow implements an **x402-style** payment protocol:
 
