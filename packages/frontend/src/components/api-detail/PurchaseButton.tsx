@@ -28,7 +28,7 @@ export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
 
   if (!isConnected) {
     return (
-      <p className="text-gray-500 text-center py-4">
+      <p className="text-center py-4" style={{ color: "var(--text2)" }}>
         Connect your wallet to purchase this API
       </p>
     );
@@ -52,7 +52,7 @@ export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
       <button
         onClick={handlePurchase}
         disabled={isLoading}
-        className="w-full btn-primary py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full btn-primary py-3 text-lg"
       >
         {isPreparing
           ? "Preparing..."
@@ -64,7 +64,7 @@ export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
       </button>
 
       {prepareError && (
-        <p className="text-red-500 text-sm text-center">{prepareError}</p>
+        <p className="text-sm text-center" style={{ color: "var(--red)" }}>{prepareError}</p>
       )}
     </div>
   );

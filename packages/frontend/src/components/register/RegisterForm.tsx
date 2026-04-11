@@ -18,7 +18,7 @@ export default function RegisterForm() {
   if (!isConnected) {
     return (
       <div className="card text-center py-8">
-        <p className="text-gray-500">Connect your wallet to register an API</p>
+        <p style={{ color: "var(--text2)" }}>Connect your wallet to register an API</p>
       </div>
     );
   }
@@ -26,13 +26,13 @@ export default function RegisterForm() {
   if (result) {
     return (
       <div className="card text-center py-8">
-        <h3 className="text-xl font-semibold text-green-600 mb-2">
+        <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--green)" }}>
           API Registered Successfully!
         </h3>
-        <p className="text-gray-600 mb-2">
+        <p className="mb-2" style={{ color: "var(--text2)" }}>
           Your API has been submitted for review.
         </p>
-        <p className="text-sm text-gray-400">ID: {result.id}</p>
+        <p className="text-sm font-mono" style={{ color: "var(--text3)" }}>ID: {result.id}</p>
       </div>
     );
   }
@@ -59,7 +59,7 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="card space-y-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
           API Name
         </label>
         <input
@@ -73,7 +73,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
           Description
         </label>
         <textarea
@@ -86,7 +86,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
           Endpoint URL
         </label>
         <input
@@ -101,7 +101,7 @@ export default function RegisterForm() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
             Price (ETH)
           </label>
           <input
@@ -116,7 +116,7 @@ export default function RegisterForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
             Category
           </label>
           <select
@@ -134,17 +134,17 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-sm" style={{ color: "var(--red)" }}>{error}</p>}
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full btn-primary py-3 disabled:opacity-50"
+        className="w-full btn-primary py-3"
       >
         {loading ? "Submitting..." : "Register API"}
       </button>
 
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-center font-mono" style={{ color: "var(--text3)" }}>
         Seller address: {address}
       </p>
     </form>

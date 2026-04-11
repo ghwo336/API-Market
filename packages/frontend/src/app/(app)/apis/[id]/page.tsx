@@ -15,7 +15,7 @@ export default function ApiDetailPage() {
   if (error) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <p className="text-red-500">{error}</p>
+        <p style={{ color: "var(--red)" }}>{error}</p>
       </div>
     );
   }
@@ -24,7 +24,10 @@ export default function ApiDetailPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {isMock && (
-        <div className="mb-6 bg-yellow-50 border border-yellow-200 text-yellow-800 px-4 py-3 rounded-lg text-sm">
+        <div
+          className="mb-6 px-4 py-3 rounded-lg text-sm"
+          style={{ background: "rgba(210,153,34,0.1)", border: "1px solid rgba(210,153,34,0.3)", color: "#e3b341" }}
+        >
           Showing demo data — backend is not connected
         </div>
       )}

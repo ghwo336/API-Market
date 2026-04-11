@@ -73,33 +73,35 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
     }
   }
 
-  const isOk = testResult?.status !== null && testResult?.status !== undefined && testResult.status >= 200 && testResult.status < 300;
+  const isOk = testResult?.status != null && testResult.status >= 200 && testResult.status < 300;
 
   return (
-    <div className="card divide-y divide-gray-100">
+    <div className="card" style={{ borderColor: "var(--border)" }}>
       {/* Header */}
-      <div className="pb-4">
+      <div className="pb-4" style={{ borderBottom: "1px solid var(--border)" }}>
         <div className="flex justify-between items-start">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-lg font-semibold text-gray-900">{api.name}</h3>
+              <h3 className="text-lg font-semibold" style={{ color: "var(--text)" }}>{api.name}</h3>
               <StatusBadge status={api.status} />
             </div>
-            <p className="text-xs text-gray-400 font-mono">
+            <p className="text-xs font-mono" style={{ color: "var(--text3)" }}>
               Seller: {api.sellerAddress}
             </p>
           </div>
-          <div className="text-right text-sm text-gray-500">
-            <p className="font-medium">{formatEther(BigInt(api.price))} ETH</p>
-            <p className="capitalize text-xs">{api.category}</p>
+          <div className="text-right text-sm">
+            <p className="font-medium" style={{ color: "var(--green)" }}>{formatEther(BigInt(api.price))} ETH</p>
+            <p className="capitalize text-xs" style={{ color: "var(--text2)" }}>{api.category}</p>
           </div>
         </div>
-        <p className="text-sm text-gray-600 mt-3">{api.description}</p>
+        <p className="text-sm mt-3" style={{ color: "var(--text2)" }}>{api.description}</p>
 
-        {/* Endpoint */}
         <div className="mt-3 flex items-center gap-2">
-          <span className="text-xs text-gray-500">Endpoint:</span>
-          <code className="text-xs bg-gray-100 px-2 py-0.5 rounded flex-1 truncate">
+          <span className="text-xs" style={{ color: "var(--text2)" }}>Endpoint:</span>
+          <code
+            className="text-xs px-2 py-0.5 rounded flex-1 truncate"
+            style={{ background: "var(--bg3)", color: "var(--cyan)", fontFamily: "var(--font-mono)", border: "1px solid var(--border2)" }}
+          >
             {api.endpoint}
           </code>
         </div>
@@ -107,10 +109,11 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
 
       {/* Example request/response */}
       {(api.exampleRequest || api.exampleResponse) && (
-        <div className="py-4">
+        <div className="py-4" style={{ borderBottom: "1px solid var(--border)" }}>
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-xs font-medium text-primary-600 hover:underline"
+            className="text-xs font-medium transition-colors"
+            style={{ color: "var(--cyan)" }}
           >
             {expanded ? "Hide" : "Show"} sample request/response
           </button>
@@ -118,16 +121,22 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
             <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
               {api.exampleRequest && (
                 <div>
-                  <p className="text-xs font-medium text-gray-500 mb-1">Example Request</p>
-                  <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2 overflow-auto max-h-40">
+                  <p className="text-xs font-medium mb-1" style={{ color: "var(--text2)" }}>Example Request</p>
+                  <pre
+                    className="text-xs rounded p-2 overflow-auto max-h-40"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)", color: "var(--text)", fontFamily: "var(--font-mono)" }}
+                  >
                     {JSON.stringify(api.exampleRequest as object, null, 2)}
                   </pre>
                 </div>
               )}
               {api.exampleResponse && (
                 <div>
-                  <p className="text-xs font-medium text-gray-500 mb-1">Example Response</p>
-                  <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2 overflow-auto max-h-40">
+                  <p className="text-xs font-medium mb-1" style={{ color: "var(--text2)" }}>Example Response</p>
+                  <pre
+                    className="text-xs rounded p-2 overflow-auto max-h-40"
+                    style={{ background: "var(--bg)", border: "1px solid var(--border)", color: "var(--text)", fontFamily: "var(--font-mono)" }}
+                  >
                     {JSON.stringify(api.exampleResponse as object, null, 2)}
                   </pre>
                 </div>
@@ -138,13 +147,14 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
       )}
 
       {/* Test section */}
-      <div className="py-4">
+      <div className="py-4" style={{ borderBottom: "1px solid var(--border)" }}>
         <div className="flex items-center justify-between mb-3">
-          <p className="text-sm font-medium text-gray-700">Live Test</p>
+          <p className="text-sm font-medium" style={{ color: "var(--text)" }}>Live Test</p>
           <button
             onClick={handleTest}
             disabled={testLoading}
-            className="text-xs px-3 py-1.5 bg-gray-800 text-white rounded hover:bg-gray-700 disabled:opacity-50"
+            className="text-xs px-3 py-1.5 rounded transition-colors disabled:opacity-50"
+            style={{ background: "var(--bg3)", color: "var(--text2)", border: "1px solid var(--border2)" }}
           >
             {testLoading ? "Testing..." : "Run Test"}
           </button>
@@ -154,19 +164,24 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
           <div className="space-y-2">
             <div className="flex items-center gap-3 text-xs">
               <span
-                className={`font-bold px-2 py-0.5 rounded ${
-                  isOk ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-                }`}
+                className="font-bold px-2 py-0.5 rounded"
+                style={{
+                  background: isOk ? "rgba(63,185,80,0.15)" : "rgba(248,81,73,0.15)",
+                  color: isOk ? "var(--green)" : "var(--red)",
+                }}
               >
                 {testResult.status ?? "ERR"}
               </span>
-              <span className="text-gray-400">{testResult.latencyMs}ms</span>
+              <span style={{ color: "var(--text3)" }}>{testResult.latencyMs}ms</span>
               {testResult.error && (
-                <span className="text-red-500">{testResult.error}</span>
+                <span style={{ color: "var(--red)" }}>{testResult.error}</span>
               )}
             </div>
             {testResult.body !== null && (
-              <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2 overflow-auto max-h-48">
+              <pre
+                className="text-xs rounded p-2 overflow-auto max-h-48"
+                style={{ background: "var(--bg)", border: "1px solid var(--border)", color: "var(--text)", fontFamily: "var(--font-mono)" }}
+              >
                 {JSON.stringify(testResult.body, null, 2)}
               </pre>
             )}
@@ -178,7 +193,7 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
       <div className="pt-4 space-y-3">
         {showRejectInput && (
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">
+            <label className="block text-xs font-medium mb-1" style={{ color: "var(--text2)" }}>
               Rejection reason (optional)
             </label>
             <textarea
@@ -193,21 +208,22 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
           <button
             onClick={handleApprove}
             disabled={actionLoading}
-            className="btn-primary flex-1 disabled:opacity-50"
+            className="btn-primary flex-1"
           >
             {actionLoading ? "Processing..." : "Approve"}
           </button>
           <button
             onClick={handleReject}
             disabled={actionLoading}
-            className="btn-danger flex-1 disabled:opacity-50"
+            className="btn-danger flex-1"
           >
             {showRejectInput ? "Confirm Reject" : "Reject"}
           </button>
           {showRejectInput && (
             <button
               onClick={() => { setShowRejectInput(false); setRejectReason(""); }}
-              className="px-3 py-2 text-sm text-gray-500 hover:text-gray-700"
+              className="px-3 py-2 text-sm transition-colors"
+              style={{ color: "var(--text2)" }}
             >
               Cancel
             </button>
