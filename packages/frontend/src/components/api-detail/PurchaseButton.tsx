@@ -18,6 +18,7 @@ export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
     isWriting,
     isConfirming,
     isConfirmed,
+    step,
   } = usePayment();
 
   useEffect(() => {
@@ -56,10 +57,10 @@ export default function PurchaseButton({ api }: { api: ApiListingPublic }) {
       >
         {isPreparing
           ? "Preparing..."
-          : isWriting
-            ? "Confirm in wallet..."
-            : isConfirming
-              ? "Confirming..."
+          : step === "approving" && (isWriting || isConfirming)
+            ? isWriting ? "Approve USDC in wallet..." : "Approving USDC..."
+            : step === "paying" && (isWriting || isConfirming)
+              ? isWriting ? "Confirm payment in wallet..." : "Confirming payment..."
               : "Purchase API"}
       </button>
 

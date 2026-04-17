@@ -9,7 +9,7 @@ const POINTS = [
     title: "Smart Contract (Escrow Layer)",
     desc: (
       <>
-        Solidity contract on Monad handles all payment logic. Funds lock on{" "}
+        Solidity contract on Base handles all payment logic. Funds lock on{" "}
         <code>pay()</code>, release on <code>complete()</code>, or return on{" "}
         <code>refund()</code>. Trustless by design.
       </>

@@ -52,7 +52,7 @@ export default function LandingFooter() {
         </a>
       </div>
 
-      <span className={styles.copy}>© 2025 API-Market · Built on Monad</span>
+      <span className={styles.copy}>© 2025 API-Market · Built on Base</span>
     </footer>
   );
 }

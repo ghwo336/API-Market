@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useAccount } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { formatEther } from "viem";
+import { formatUnits } from "viem";
 import { useAdmin } from "@/hooks/useAdmin";
 import { apiClient } from "@/lib/api-client";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
@@ -198,7 +198,7 @@ export default function AdminPage() {
                       <td className="px-4 py-3 capitalize" style={{ color: "var(--text2)" }}>{api.category}</td>
                       <td className="px-4 py-3"><StatusBadge status={api.status} /></td>
                       <td className="px-4 py-3 text-right" style={{ color: "var(--text2)" }}>
-                        {formatEther(BigInt(api.price))} ETH
+                        {formatUnits(BigInt(api.price), 6)} USDC
                       </td>
                       <td className="px-4 py-3 text-right font-semibold" style={{ color: "var(--green)" }}>
                         {api._count.payments}

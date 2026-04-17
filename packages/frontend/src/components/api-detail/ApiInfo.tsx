@@ -1,4 +1,4 @@
-import { formatEther } from "viem";
+import { formatUnits } from "viem";
 import type { ApiListingPublic } from "@apimarket/shared";
 import StatusBadge from "../shared/StatusBadge";
 
@@ -24,7 +24,7 @@ export default function ApiInfo({ api }: { api: ApiListingPublic }) {
         <div className="rounded-lg p-4" style={{ background: "var(--bg3)", border: "1px solid var(--border)" }}>
           <p className="text-sm mb-1" style={{ color: "var(--text2)" }}>Price</p>
           <p className="text-2xl font-bold" style={{ color: "var(--accent)" }}>
-            {formatEther(BigInt(api.price))} ETH
+            {formatUnits(BigInt(api.price), 6)} USDC
           </p>
         </div>
         <div className="rounded-lg p-4" style={{ background: "var(--bg3)", border: "1px solid var(--border)" }}>

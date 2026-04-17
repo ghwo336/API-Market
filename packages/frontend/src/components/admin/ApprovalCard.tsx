@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formatEther } from "viem";
+import { formatUnits } from "viem";
 import type { ApiListing } from "@apimarket/shared";
 import StatusBadge from "../shared/StatusBadge";
 
@@ -90,7 +90,7 @@ export default function ApprovalCard({ api, adminAddress, onApprove, onReject }:
             </p>
           </div>
           <div className="text-right text-sm">
-            <p className="font-medium" style={{ color: "var(--green)" }}>{formatEther(BigInt(api.price))} ETH</p>
+            <p className="font-medium" style={{ color: "var(--green)" }}>{formatUnits(BigInt(api.price), 6)} USDC</p>
             <p className="capitalize text-xs" style={{ color: "var(--text2)" }}>{api.category}</p>
           </div>
         </div>

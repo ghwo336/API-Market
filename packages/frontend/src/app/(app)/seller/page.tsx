@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useAccount } from "wagmi";
 import Link from "next/link";
-import { formatEther } from "viem";
+import { formatUnits } from "viem";
 import StatusBadge from "@/components/shared/StatusBadge";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { useSellerApis, type SellerApi } from "@/hooks/useSellerApis";
@@ -70,7 +70,7 @@ export default function SellerPage() {
             className="text-2xl font-bold mt-1"
             style={{ color: hasPending ? "var(--green)" : "var(--text3)" }}
           >
-            {formatEther(pendingAmount)} ETH
+            {formatUnits(pendingAmount, 6)} USDC
           </p>
           {isConfirmed && (
             <p className="text-xs mt-1" style={{ color: "var(--green)" }}>Successfully claimed!</p>
@@ -134,7 +134,7 @@ function StatCard({ label, value, color }: { label: string; value: number; color
 }
 
 function ApiRow({ api, onDelete }: { api: SellerApi; onDelete: (id: string) => void }) {
-  const priceInEth = formatEther(BigInt(api.price));
+  const priceInUsdc = formatUnits(BigInt(api.price), 6);
   const canDelete = api.status === "APPROVED" || api.status === "REJECTED" || api.status === "REVOKED";
 
   return (
@@ -177,7 +177,7 @@ function ApiRow({ api, onDelete }: { api: SellerApi; onDelete: (id: string) => v
         >
           {api.category}
         </span>
-        <span className="text-sm font-semibold" style={{ color: "var(--green)" }}>{priceInEth} ETH</span>
+        <span className="text-sm font-semibold" style={{ color: "var(--green)" }}>{priceInUsdc} USDC</span>
         <span className="text-xs" style={{ color: "var(--text3)" }}>{api._count.payments} sales</span>
         <span className="text-xs" style={{ color: "var(--text3)" }}>
           {new Date(api.createdAt).toLocaleDateString()}

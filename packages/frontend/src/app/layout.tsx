@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "API Market - Agent API Marketplace",
   description:
-    "Discover, buy, and use verified APIs with on-chain payments on Monad",
+    "Discover, buy, and use verified APIs with on-chain payments on Base",
   icons: {
     icon: "/favicon.png",
   },

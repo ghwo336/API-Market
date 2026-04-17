@@ -3,3 +3,9 @@ export const CONTRACT_ADDRESSES: Record<number, `0x${string}`> = {
   8453: "0x0000000000000000000000000000000000000000", // Base Mainnet - fill after deploy
   31337: "0x0000000000000000000000000000000000000000", // Hardhat Local - fill after deploy
 };
+
+export const USDC_ADDRESSES: Record<number, `0x${string}`> = {
+  84532: "0x036CbD53842c5426634e7929541eC2318f3dCF7e", // Base Sepolia USDC
+  8453: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", // Base Mainnet USDC
+  31337: "0x0000000000000000000000000000000000000000",
+};

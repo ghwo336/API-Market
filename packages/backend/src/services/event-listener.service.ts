@@ -4,7 +4,7 @@ import { publicClient } from "../config/viem.js";
 import * as paymentService from "./payment.service.js";
 import * as gatewayService from "./gateway.service.js";
 import { logger } from "../utils/logger.js";
-import { formatEther } from "viem";
+import { formatUnits } from "viem";
 
 export async function startEventListener() {
   logger.info("Starting payment event listener...");
@@ -35,7 +35,7 @@ export async function startEventListener() {
               paymentId: args.paymentId.toString(),
               buyer: args.buyer,
               apiId: args.apiId.toString(),
-              amount: formatEther(args.amount),
+              amount: formatUnits(args.amount, 6),
             },
             "PaymentReceived event detected"
           );

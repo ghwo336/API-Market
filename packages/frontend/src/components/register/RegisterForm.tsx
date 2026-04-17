@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useAccount } from "wagmi";
-import { parseEther } from "viem";
+import { parseUnits } from "viem";
 import { useRegister } from "@/hooks/useRegister";
 
 export default function RegisterForm() {
@@ -12,7 +12,7 @@ export default function RegisterForm() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [endpoint, setEndpoint] = useState("");
-  const [priceInEth, setPriceInMon] = useState("");
+  const [priceInUsdc, setPriceInUsdc] = useState("");
   const [category, setCategory] = useState("general");
 
   if (!isConnected) {
@@ -42,7 +42,7 @@ export default function RegisterForm() {
     if (!address) return;
 
     try {
-      const priceInWei = parseEther(priceInEth).toString();
+      const priceInWei = parseUnits(priceInUsdc, 6).toString();
       await register({
         name,
         description,
@@ -102,16 +102,16 @@ export default function RegisterForm() {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium mb-1" style={{ color: "var(--text2)" }}>
-            Price (ETH)
+            Price (USDC)
           </label>
           <input
             type="number"
             step="0.001"
             min="0"
-            value={priceInEth}
-            onChange={(e) => setPriceInMon(e.target.value)}
+            value={priceInUsdc}
+            onChange={(e) => setPriceInUsdc(e.target.value)}
             className="input"
-            placeholder="0.01"
+            placeholder="1.00"
             required
           />
         </div>

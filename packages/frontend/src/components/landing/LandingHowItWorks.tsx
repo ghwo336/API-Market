@@ -93,7 +93,7 @@ export default function LandingHowItWorks() {
                 <T.cmt>{"// on-chain tx"}</T.cmt>
               </TLine>
               <TLine>
-                <T.cmt>{"// Monad confirms in ~1s → Gateway triggers API automatically"}</T.cmt>
+                <T.cmt>{"// Base confirms in ~1s → Gateway triggers API automatically"}</T.cmt>
               </TLine>
               <TLine />
               <TLine>

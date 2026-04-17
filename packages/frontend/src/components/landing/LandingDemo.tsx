@@ -15,7 +15,7 @@ export default function LandingDemo() {
             No signup needed.
           </h2>
           <p className={sStyles.sub}>
-            The testnet is running on Monad. Connect your wallet, pick a
+            The testnet is running on Base Sepolia. Connect your wallet, pick a
             verified API, and experience agent-native payments firsthand.
           </p>
         </FadeIn>

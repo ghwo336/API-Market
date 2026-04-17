@@ -174,14 +174,14 @@ export default function DocsPage() {
       <section id="prereqs" className="mb-14">
         <h2 className="text-2xl font-bold mb-4" style={{ color: "var(--text)" }}>1. Prerequisites</h2>
         <p className="mb-4" style={{ color: "var(--text2)" }}>
-          You need a wallet funded with a small amount of ETH on <strong style={{ color: "var(--text)" }}>Base Sepolia</strong> (testnet) to pay for API calls.
+          You need a wallet funded with USDC on <strong style={{ color: "var(--text)" }}>Base Sepolia</strong> (testnet) to pay for API calls.
         </p>
         <ul className="list-disc list-inside space-y-1 mb-4" style={{ color: "var(--text2)" }}>
           <li>Node.js 18+</li>
           <li>
-            Base Sepolia test ETH —{" "}
+            Base Sepolia USDC —{" "}
             <a
-              href="https://www.coinbase.com/faucets/base-ethereum-sepolia-faucet"
+              href="https://faucet.circle.com"
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: "var(--cyan)" }}
@@ -235,7 +235,7 @@ export default function DocsPage() {
           <Line prompt={false} color="gray">{"{"}</Line>
           <Line prompt={false} color="gray">{"  "}<span style={{ color: "#e3b341" }}>"status"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>402</span>,</Line>
           <Line prompt={false} color="gray">{"  "}<span style={{ color: "#e3b341" }}>"x402"</span><span style={{ color: "var(--text3)" }}>: {"{"}</span></Line>
-          <Line prompt={false} color="gray">{"    "}<span style={{ color: "#e3b341" }}>"amount"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>"1000000000000000"</span>,<span style={{ color: "var(--text3)" }} className="ml-2">// 0.001 ETH in wei</span></Line>
+          <Line prompt={false} color="gray">{"    "}<span style={{ color: "#e3b341" }}>"amount"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>"1000000"</span>,<span style={{ color: "var(--text3)" }} className="ml-2">// 1.00 USDC (6 decimals)</span></Line>
           <Line prompt={false} color="gray">{"    "}<span style={{ color: "#e3b341" }}>"onChainApiId"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>3</span>,</Line>
           <Line prompt={false} color="gray">{"    "}<span style={{ color: "#e3b341" }}>"seller"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>"0xSellerAddress..."</span>,</Line>
           <Line prompt={false} color="gray">{"    "}<span style={{ color: "#e3b341" }}>"contract"</span><span style={{ color: "var(--text3)" }}>: </span><span style={{ color: "var(--green)" }}>"{CONTRACT.slice(0, 12)}..."</span></Line>

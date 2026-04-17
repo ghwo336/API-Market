@@ -5,7 +5,7 @@ const STATS = [
   { num: "~1s", label: "Payment → Execution" },
   { num: "0", label: "Trusted Intermediaries" },
   { num: "100%", label: "Curated APIs" },
-  { num: "EVM", label: "Compatible (Monad)" },
+  { num: "EVM", label: "Compatible (Base)" },
 ];
 
 export default function LandingHero() {
@@ -15,7 +15,7 @@ export default function LandingHero() {
 
       <div className={styles.badge}>
         <span className={styles.dot} />
-        Live on Monad Testnet
+        Live on Base Sepolia
       </div>
 
       <h1 className={styles.h1}>
@@ -64,7 +64,7 @@ export default function LandingHero() {
             <T.out>();</T.out>
           </TLine>
           <TLine>
-            <T.cmt>{"// → [{ id: \"weather-v2\", price: \"0.001 MON\", verified: true }]"}</T.cmt>
+            <T.cmt>{"// → [{ id: \"weather-v2\", price: \"1.00 USDC\", verified: true }]"}</T.cmt>
           </TLine>
           <TLine />
           <TLine>
@@ -97,7 +97,7 @@ export default function LandingHero() {
           </TLine>
           <TLine />
           <TLine>
-            <T.cmt>{"// tx confirms in ~1s on Monad → Gateway executes API"}</T.cmt>
+            <T.cmt>{"// tx confirms in ~1s on Base → Gateway executes API"}</T.cmt>
           </TLine>
           <TLine>
             <T.ok>✓ Response received · Seller paid · Escrow cleared</T.ok>{" "}

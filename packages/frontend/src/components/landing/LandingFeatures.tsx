@@ -11,7 +11,7 @@ const FEATURES = [
   {
     label: "02 · On-Chain",
     title: "Transparent Settlement",
-    desc: "All payments live on-chain. Every pay(), complete(), and refund() is publicly verifiable on Monad. No black-box billing.",
+    desc: "All payments live on-chain. Every pay(), complete(), and refund() is publicly verifiable on Base. No black-box billing.",
   },
   {
     label: "03 · Curated",
@@ -21,7 +21,7 @@ const FEATURES = [
   {
     label: "04 · Real-Time",
     title: "~1s Payment → Execution",
-    desc: "Built on Monad's high-throughput EVM chain. Block finality is near-instant, so agents receive API responses in real-time after payment.",
+    desc: "Built on Base's high-throughput EVM chain. Block finality is near-instant, so agents receive API responses in real-time after payment.",
   },
   {
     label: "05 · Protected",
@@ -36,7 +36,7 @@ const FEATURES = [
 ];
 
 const TAGS = [
-  "Monad EVM",
+  "Base EVM",
   "Solidity Escrow",
   "Node.js Gateway",
   "Event-Driven",
